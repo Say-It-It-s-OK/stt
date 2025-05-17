@@ -10,7 +10,7 @@ router.post("/", upload.single("audio"), async (req, res) => {
         const transcript = await transcribeAudio(req.file.path);
         res.json({ transcript });
     } catch (error) {
-        console.error(error);
+        console.error("❌ STT 오류:", error);
         res.status(500).json({ error: "STT 실패" });
     }
 });
