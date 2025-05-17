@@ -1,0 +1,25 @@
+# node_modules: 의존성 폴더
+node_modules/
+
+# 환경설정 또는 민감한 키
+.env
+*.env
+
+# Google 서비스 계정 키
+google-key.json
+
+# 업로드된 오디오 파일 (multer 임시 저장소)
+uploads/
+
+# 로그 파일
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# macOS, Windows, Linux 임시파일
+.DS_Store
+Thumbs.db
+
+# 에디터별 설정 (선택)
+.vscode/
+.idea/
