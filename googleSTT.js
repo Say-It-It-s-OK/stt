@@ -1,13 +1,10 @@
-const fs = require("fs");
 const speech = require("@google-cloud/speech");
+const fs = require("fs");
 
-const client = new speech.SpeechClient({
-    keyFilename: "google-key.json",
-});
+const client = new speech.SpeechClient();
 
-async function transcribeAudio(filePath) {
-    const file = fs.readFileSync(filePath);
-    const audioBytes = file.toString("base64");
+const transcribeAudio = async (filePath) => {
+    const audioBytes = fs.readFileSync(filePath).toString("base64");
 
     const audio = {
         content: audioBytes,
@@ -19,10 +16,19 @@ async function transcribeAudio(filePath) {
         languageCode: "ko-KR",
     };
 
-    const request = { audio, config };
+    const request = {
+        audio,
+        config,
+    };
 
     const [response] = await client.recognize(request);
-    return response.results.map((r) => r.alternatives[0].transcript).join("\n");
-}
+    const transcription = response.results
+        .map((result) => result.alternatives[0].transcript)
+        .join("\n");
+
+    console.log("📝 인식된 텍스트:", transcription);
+
+    return transcription;
+};
 
 module.exports = transcribeAudio;
